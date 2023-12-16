@@ -51,7 +51,7 @@
 //     {
 //         System.Console.WriteLine("Такого элемента нет");
 //     }
-    
+
 // }
 
 // CreateArray();
@@ -96,7 +96,7 @@
 //         array[0,j] = array[array.GetLength(0)-1,j];
 //         array[array.GetLength(0)-1,j] = temp;
 //     }
-   
+
 // }
 
 // CreateArray();
@@ -113,58 +113,58 @@
 // которая будет находить строку с наименьшей суммой элементов.
 
 
-int[,] array = new int [4,4];
+// int[,] array = new int [4,4];
 
-void CreateArray()
-{
-    for (int i = 0; i < array.GetLength(0); i++)
-    {
-        for (int j = 0; j < array.GetLength(1); j++)
-        {
-            array[i,j] = new Random().Next(0,10);
-        }
-    }
-}
+// void CreateArray()
+// {
+//     for (int i = 0; i < array.GetLength(0); i++)
+//     {
+//         for (int j = 0; j < array.GetLength(1); j++)
+//         {
+//             array[i,j] = new Random().Next(0,10);
+//         }
+//     }
+// }
 
-void PrintArray()
-{
-    for (int i = 0; i < array.GetLength(0); i++)
-    {
-        for (int j = 0; j <  array.GetLength(1); j++)
-        {
-            System.Console.Write(array[i,j]+" ");
-        }
-        System.Console.WriteLine();
-    }
-}
+// void PrintArray()
+// {
+//     for (int i = 0; i < array.GetLength(0); i++)
+//     {
+//         for (int j = 0; j <  array.GetLength(1); j++)
+//         {
+//             System.Console.Write(array[i,j]+" ");
+//         }
+//         System.Console.WriteLine();
+//     }
+// }
 
-int FindMinSum()
-{
-    int indexRowMinSum = 0;
-    int minSumElements = 0;
-    for (int i = 0; i < array.GetLength(0); i++)
-    {
-        int sumElements = 0;
-        for (int j = 0; j < array.GetLength(1); j++)
-        {
-            sumElements += array[i,j];
-        }
-        if (i == 0)
-        {
-            minSumElements = sumElements;
-        }
-        else if (sumElements<minSumElements)
-        {
-            indexRowMinSum = i;
-            minSumElements = sumElements;
-        }
-    }
-    return indexRowMinSum;
-}
+// int FindMinSum()
+// {
+//     int indexRowMinSum = 0;
+//     int minSumElements = 0;
+//     for (int i = 0; i < array.GetLength(0); i++)
+//     {
+//         int sumElements = 0;
+//         for (int j = 0; j < array.GetLength(1); j++)
+//         {
+//             sumElements += array[i,j];
+//         }
+//         if (i == 0)
+//         {
+//             minSumElements = sumElements;
+//         }
+//         else if (sumElements<minSumElements)
+//         {
+//             indexRowMinSum = i;
+//             minSumElements = sumElements;
+//         }
+//     }
+//     return indexRowMinSum;
+// }
 
-CreateArray();
-PrintArray();
-System.Console.WriteLine("строка с наименьшей суммой элементов - строка с индексом "+FindMinSum());
+// CreateArray();
+// PrintArray();
+// System.Console.WriteLine("строка с наименьшей суммой элементов - строка с индексом "+FindMinSum());
 
 
 
@@ -175,3 +175,96 @@ System.Console.WriteLine("строка с наименьшей суммой эл
 // Напишите программу, которая удалит строку и столбец, 
 // на пересечении которых расположен наименьший элемент массива. 
 // Под удалением понимается создание нового двумерного массива без строки и столбца
+
+
+int[,] array = new int [3,4];
+int[,] newArray = new int [array.GetLength(0)-1, array.GetLength(1)-1];
+int iMin = 0;
+int jMin = 0;
+
+void CreateArray()
+{
+    for (int i = 0; i < array.GetLength(0); i++)
+    {
+        for (int j = 0; j < array.GetLength(1); j++)
+        {
+            array[i,j] = new Random().Next(1,100);
+        }
+    }
+}
+void PrintArray()
+{
+    for (int i = 0; i < array.GetLength(0); i++)
+    {
+        for (int j = 0; j < array.GetLength(1); j++)
+        {
+            System.Console.Write(array[i,j]+" ");
+        }
+        System.Console.WriteLine();
+    }
+}
+
+int FindMinElement()
+{
+    for (int i = 0; i < array.GetLength(0); i++)
+    {
+        for (int j = 0; j < array.GetLength(1); j++)
+        {
+            if (array[i,j]<array[iMin,jMin])
+            {
+                iMin = i;
+                jMin = j;
+            }
+        }
+    }
+    return array[iMin,jMin];
+
+    }
+
+void DeleteRawColumn()
+{
+    int iNewArr = 0;
+    for (int i = 0; i < array.GetLength(0); i++)
+    {
+        if (i!=iMin)
+        {
+            int jNewArr = 0;
+            for (int j = 0; j < array.GetLength(1); j++)
+            {
+                if (j!=jMin)
+                {
+                    newArray[iNewArr,jNewArr] = array[i,j];
+                    if (jNewArr<newArray.GetLength(1)-1)
+                    {
+                        jNewArr++;
+                    }
+                            
+                }                
+            }
+            if (iNewArr<newArray.GetLength(0)-1)
+            {
+                iNewArr++;
+            }
+           
+        }
+    }
+}
+    
+void PrintNewArray()
+{
+    for (int i = 0; i < newArray.GetLength(0); i++)
+    {
+        for (int j = 0; j < newArray.GetLength(1); j++)
+        {
+            System.Console.Write(newArray[i,j]+" ");
+        }
+        System.Console.WriteLine();
+    }
+}
+
+CreateArray();
+PrintArray();
+System.Console.WriteLine("Минимальный элемент массива "+FindMinElement());
+DeleteRawColumn();
+System.Console.WriteLine();
+PrintNewArray();
