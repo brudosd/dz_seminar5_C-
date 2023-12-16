@@ -63,7 +63,57 @@
 // Задайте двумерный массив. Напишите программу, 
 // которая поменяет местами первую и последнюю строку массива.
 
-int[,] array = new int [3,4];
+// int[,] array = new int [3,4];
+
+// void CreateArray()
+// {
+//     for (int i = 0; i < array.GetLength(0); i++)
+//     {
+//         for (int j = 0; j < array.GetLength(1); j++)
+//         {
+//             array[i,j] = new Random().Next(1,10);
+//         }
+//     }
+// }
+// void PrintArray()
+// {
+//     for (int i = 0; i < array.GetLength(0); i++)
+//     {
+//         for (int j = 0; j < array.GetLength(1); j++)
+//         {
+//             System.Console.Write(array[i,j]+" ");
+//         }
+//         System.Console.WriteLine();
+//     }
+//     System.Console.WriteLine();
+// }
+
+// void FindElementsArray2()
+// {
+//     for (int j = 0; j < array.GetLength(1); j++)
+//     {
+//         int temp = array[0,j];
+//         array[0,j] = array[array.GetLength(0)-1,j];
+//         array[array.GetLength(0)-1,j] = temp;
+//     }
+   
+// }
+
+// CreateArray();
+// PrintArray();
+// FindElementsArray2();
+// PrintArray();
+
+
+
+
+
+// //Задача 3
+// Задайте прямоугольный двумерный массив. Напишите программу, 
+// которая будет находить строку с наименьшей суммой элементов.
+
+
+int[,] array = new int [4,4];
 
 void CreateArray()
 {
@@ -71,35 +121,57 @@ void CreateArray()
     {
         for (int j = 0; j < array.GetLength(1); j++)
         {
-            array[i,j] = new Random().Next(1,10);
+            array[i,j] = new Random().Next(0,10);
         }
     }
 }
+
 void PrintArray()
 {
     for (int i = 0; i < array.GetLength(0); i++)
     {
-        for (int j = 0; j < array.GetLength(1); j++)
+        for (int j = 0; j <  array.GetLength(1); j++)
         {
             System.Console.Write(array[i,j]+" ");
         }
         System.Console.WriteLine();
     }
-    System.Console.WriteLine();
 }
 
-void FindElementsArray2()
+int FindMinSum()
 {
-    for (int j = 0; j < array.GetLength(1); j++)
+    int indexRowMinSum = 0;
+    int minSumElements = 0;
+    for (int i = 0; i < array.GetLength(0); i++)
     {
-        int temp = array[0,j];
-        array[0,j] = array[array.GetLength(0)-1,j];
-        array[array.GetLength(0)-1,j] = temp;
+        int sumElements = 0;
+        for (int j = 0; j < array.GetLength(1); j++)
+        {
+            sumElements += array[i,j];
+        }
+        if (i == 0)
+        {
+            minSumElements = sumElements;
+        }
+        else if (sumElements<minSumElements)
+        {
+            indexRowMinSum = i;
+            minSumElements = sumElements;
+        }
     }
-   
+    return indexRowMinSum;
 }
 
 CreateArray();
 PrintArray();
-FindElementsArray2();
-PrintArray();
+System.Console.WriteLine("строка с наименьшей суммой элементов - строка с индексом "+FindMinSum());
+
+
+
+
+
+// Задача 4*(не обязательная): 
+// Задайте двумерный массив из целых чисел. 
+// Напишите программу, которая удалит строку и столбец, 
+// на пересечении которых расположен наименьший элемент массива. 
+// Под удалением понимается создание нового двумерного массива без строки и столбца
